@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Game Event Log</h1>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>Log Contents</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Action</th>
+                    <th>Value</th>
+                    <th>Economic Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in log_contents %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.action }}</td>
+                    <td>{{ entry.value }}</td>
+                    <td>{{ entry.impact }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form method="POST" action="/clear_log" class="mt-3">
+            <button type="submit" class="btn btn-danger">Clear Log</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

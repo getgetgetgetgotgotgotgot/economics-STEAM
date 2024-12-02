@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Economic Simulator</h1>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>Current Economic Status</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Date:</strong> {{ game_state.date }}</p>
+        <p><strong>GDP:</strong> {{ game_state.gdp | round(2) }} billion</p>
+        <p><strong>Unemployment:</strong> {{ game_state.unemployment | round(2) }}%</p>
+        <p><strong>Inflation:</strong> {{ game_state.inflation | round(2) }}%</p>
+        <p><strong>Public Debt:</strong> {{ game_state.public_debt }} billion</p>
+        <p><strong>Investment:</strong> {{ game_state.investment }} billion</p>
+        <p><strong>Consumer Confidence:</strong> {{ game_state.consumer_confidence | round(2) }}%</p>
+        <p><strong>Population:</strong> {{ game_state.population | round(2) }} million</p>
+        <p><strong>Happiness:</strong> {{ game_state.happiness | round(2) }}%</p>
+    </div>
+</div>
+
+<!-- Form to advance time -->
+<form method="POST" action="/time_advance" class="mb-4">
+    <div class="mb-3">
+        <label for="years" class="form-label">Advance Time (in Years):</label>
+        <input type="number" class="form-control" id="years" name="years" min="1" max="120" value="1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Advance Time</button>
+</form>
+
+{% endblock %}
