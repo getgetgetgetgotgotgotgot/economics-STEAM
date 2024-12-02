@@ -20,7 +20,6 @@ game_state = {
     "notable_events": []  # Store notable events here
 }
 
-
 # Log file path
 LOG_FILE_PATH = 'game_log.txt'
 
@@ -32,7 +31,6 @@ def log_event(action, value, impact):
     with open(LOG_FILE_PATH, 'a') as log_file:
         log_file.write(log_message)
 
-
 def track_event(event_description):
     """Adds a notable event to the game state."""
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -40,63 +38,7 @@ def track_event(event_description):
         'timestamp': timestamp,
         'description': event_description
     }
-    game_state["events"].append(event)
-
-def simulate_economic_changes(years):
-    """Simulate more variable economic changes over time based on trends and random fluctuations."""
-
-    # GDP Growth: Random fluctuations between -2% to +6% annually
-    gdp_growth_rate = random.uniform(-0.02, 0.06)  # Range: -2% to +6%
-
-    # Inflation: Random fluctuations between 0% to 5% annually
-    inflation_rate = random.uniform(0, 0.05)  # Range: 0% to 5%
-
-    # Unemployment: Random fluctuations based on a normal distribution (mean=5%, stddev=1%)
-    unemployment_rate = max(0, random.gauss(0.05, 0.01))  # Mean 5%, standard deviation 1%
-
-    # Population Growth: Random fluctuations between 0.1% to 1% annually
-    population_growth_rate = random.uniform(0.001, 0.01)  # Range: 0.1% to 1%
-
-    # Adjust GDP based on random growth rate
-    old_gdp = game_state["gdp"]
-    game_state["gdp"] *= (1 + gdp_growth_rate)
-
-    # Adjust inflation based on random inflation rate
-    game_state["inflation"] += inflation_rate
-
-    # Adjust unemployment based on random fluctuations
-    old_unemployment = game_state["unemployment"]
-    game_state["unemployment"] = max(0, game_state["unemployment"] + random.uniform(-0.01, 0.02))  # Small random fluctuation
-
-    # Adjust population based on random growth rate
-    game_state["population"] *= (1 + population_growth_rate)
-
-    # Simulate consumer confidence with more variability
-    consumer_confidence_base = 70
-    consumer_confidence_sensitivity = -0.5  # Negative relationship with inflation
-    game_state["consumer_confidence"] = consumer_confidence_base - (game_state["inflation"] * consumer_confidence_sensitivity) + random.uniform(-5, 5)
-    game_state["consumer_confidence"] = max(0, min(100, game_state["consumer_confidence"]))  # Ensure it's within 0-100
-
-    # Simulate happiness with more variability
-    happiness_base = 75
-    happiness_sensitivity = -0.2
-    game_state["happiness"] = happiness_base - (game_state["inflation"] * happiness_sensitivity) - (game_state["unemployment"] * happiness_sensitivity) + random.uniform(-5, 5)
-    game_state["happiness"] = max(0, min(100, game_state["happiness"]))  # Ensure it's within 0-100
-
-    # Simulate random fluctuation in investment
-    game_state["investment"] += random.randint(-10, 20) * (game_state["consumer_confidence"] / 100)
-
-    # Check for economic shocks
-    if game_state["gdp"] < old_gdp * 0.9:  # GDP drops more than 10%
-        track_event("Economic Shock: GDP has dropped significantly!")
-
-    if game_state["inflation"] > 0.1:  # Inflation exceeds 10%
-        track_event("Economic Shock: Inflation has exceeded 10%!")
-
-    if game_state["unemployment"] > old_unemployment * 1.5:  # Unemployment has risen more than 50%
-        track_event("Economic Shock: Unemployment has risen significantly!")
-
-    log_event("Time Advancement", years, f"Date: {game_state['date']}, GDP: {game_state['gdp']}, Public Debt: {game_state['public_debt']}, Inflation: {game_state['inflation']}")
+    game_state["notable_events"].append(event)
 
 @app.route("/")
 def index():
@@ -156,30 +98,16 @@ def time_advance():
     game_state["happiness"] = max(0, min(100, game_state["happiness"] - years * 0.5))
 
     # Check if an economic shock occurs
-    event_occurred = False
     if game_state["gdp"] < 800:  # Example: Economic shock if GDP falls below 800
-        event_occurred = True
-        log_event("Economic Shock", "GDP Drop", f"Date: {game_state['date']}, GDP: {game_state['gdp']}")
-
+        track_event("Economic Shock: GDP has dropped below 800!")
     if game_state["unemployment"] > 10:  # Example: Economic shock if unemployment is above 10%
-        event_occurred = True
-        log_event("Economic Shock", "Unemployment Surge", f"Date: {game_state['date']}, Unemployment: {game_state['unemployment']}")
-
+        track_event("Economic Shock: Unemployment has exceeded 10%!")
     if game_state["inflation"] > 10:  # Example: Economic shock if inflation is above 10%
-        event_occurred = True
-        log_event("Economic Shock", "Inflation Surge", f"Date: {game_state['date']}, Inflation: {game_state['inflation']}")
-
-    if event_occurred:
-        # You can log the shock to be displayed in events, and store the event
-        game_state["notable_events"].append({
-            "date": game_state["date"],
-            "description": "Economic Shock"
-        })
+        track_event("Economic Shock: Inflation has exceeded 10%!")
 
     log_event("Time Advancement", years, f"Date: {game_state['date']}, GDP: {game_state['gdp']}, Public Debt: {game_state['public_debt']}")
 
     return render_template("index.html", game_state=game_state)
-
 
 @app.route("/about")
 def about():
@@ -238,7 +166,7 @@ def view_log():
 @app.route("/events")
 def view_events():
     """View notable events in a table format."""
-    return render_template("events.html", events=game_state["events"])
+    return render_template("events.html", events=game_state["notable_events"])
 
 @app.route("/clear_log", methods=["POST"])
 def clear_log():
