@@ -1,1 +1,2 @@
 2024-12-02 12:34:33.377141: Action: Time Advancement, Value: 1, Impact: Date: 2027-12-31 00:00:00, GDP: 1082.43216, Public Debt: 562.754405
+2024-12-02 12:46:52.605393: Action: Time Advancement, Value: 5, Impact: Date: 2032-12-29 00:00:00, GDP: 1190.6753760000001, Public Debt: 647.16756575
