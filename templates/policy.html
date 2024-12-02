@@ -1,13 +1,22 @@
-{% extends "base.html" %}
-
-{% block title %}Policy Actions{% endblock %}
-
-{% block content %}
-<h1>Policy Actions</h1>
-<p>Choose from various policy options to influence the economy:</p>
-<ul>
-    <li>Adjust taxes to increase public revenue or stimulate the economy.</li>
-    <li>Control spending to manage public debt or promote growth.</li>
-    <li>Set interest rates to influence inflation and unemployment.</li>
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies</title>
+</head>
+<body>
+    <h1>Policies</h1>
+    <div>
+        <h2>Recent Policies:</h2>
+        <ul>
+            {% for policy in game_state.policies %}
+                <li>
+                    <strong>{{ policy.policy }}</strong>: {{ policy.description }}<br>
+                    <em>Impact: {{ policy.impact }}</em>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
