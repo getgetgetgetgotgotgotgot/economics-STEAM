@@ -1,98 +1,118 @@
 /* General Body Styling */
 body {
-    background-color: #f8f9fa; /* Light background */
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
+  background: linear-gradient(to bottom, #f6d365 0%, #fda085 200%);
+  background-size: cover;
+  background-position: center;
+  height: 120vh;
 }
-
-/* Header Styling */
-h1 {
+  
+  /* Header Styling */
+  h1 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #343a40;
-    margin-bottom: 1.5rem;
-}
-
-/* Card Styling */
-.card {
-    border-radius: 8px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  /* Card Styling */
+  .card {
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
+    -webkit-backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
     margin-bottom: 20px;
-}
-
-.card-header {
-    background-color: #007bff;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-header {
+    background-color: rgba(0, 123, 255, 0.8);
     color: white;
     font-weight: bold;
-    padding: 10px 15px;
-    border-bottom: 2px solid #0056b3;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-/* Form Styling */
-form {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-form .form-label {
+    padding: 20px 30px;
+    border-bottom: 2px solid rgba(0, 86, 179, 0.8);
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  /* Form Styling */
+  form {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
+    -webkit-backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  form .form-label {
     font-weight: bold;
     color: #495057;
-}
-
-form .form-control {
-    border-radius: 6px;
-    padding: 10px;
+  }
+  
+  form .form-control {
+    border-radius: 10px;
+    padding: 15px;
     font-size: 1rem;
-}
-
-form .btn-primary {
-    background-color: #007bff;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  form .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  form .btn-primary {
+    background-color: rgba(0, 123, 255, 0.8);
     border: none;
-    border-radius: 6px;
-    padding: 10px 15px;
+    border-radius: 10px;
+    padding: 15px 25px;
     font-size: 1rem;
-    transition: background-color 0.3s ease-in-out;
-}
-
-form .btn-primary:hover {
-    background-color: #0056b3;
-}
-
-/* Table Styling (Optional for Future Extensions) */
-table {
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  form .btn-primary:hover {
+    background-color: rgba(0, 86, 179, 0.8);
+    transform: scale(1.05);
+  }
+  
+  /* Table Styling */
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid #dee2e6;
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #343a40;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.9rem;
-}
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
+    -webkit-backdrop-filter: blur(10px) saturate(180%) hue-rotate(0deg);
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  /* Animation Keyframes */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
